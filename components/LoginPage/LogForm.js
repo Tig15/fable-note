@@ -19,7 +19,7 @@ const RegForm = () => {
 
   const handleLogin = (values) => {
     console.log("Values:", values.email);
-    // router.replace("/list");
+    router.replace("/list");
   };
 
   return (

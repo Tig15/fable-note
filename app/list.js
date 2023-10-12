@@ -72,7 +72,7 @@ const ListPage = () => {
 
     return (
       <View
-        style={tailwind`w-[90%] ml-6 mb-2 p-2 rounded border flex-row gap-5`}
+        style={tailwind`w-[90%] ml-6 mb-2 p-2 rounded border flex-row gap-5 bg-slate-200`}
       >
         <TouchableOpacity
           onPress={toggleDown}
@@ -98,7 +98,7 @@ const ListPage = () => {
   };
 
   return (
-    <View style={tailwind`w-full h-full`}>
+    <View style={tailwind`w-full h-full bg-stone-300 `}>
       <View
         style={
           Platform.OS == "web"
@@ -107,13 +107,18 @@ const ListPage = () => {
         }
       >
         <TextInput
-          placeholder="Write Your ToDo"
+          placeholder="Write Your To-Do"
           value={todo}
           onChangeText={(text) => setTodo(text)}
-          style={tailwind`w-60 border h-10 rounded-lg pl-2`}
+          style={tailwind`w-60 h-10 border rounded-lg pl-2 bg-slate-200`}
+          placeholderTextColor="black"
         />
-        <View style={tailwind`mt-0`}>
-          <Button title="Add ToDo" onPress={addTodo} disabled={todo === ""} />
+        <View
+          style={tailwind`mt-[6px] ml-5 border rounded-lg shadow-lg h-7 bg-slate-200`}
+        >
+          <Pressable onPress={addTodo} disabled={todo === ""}>
+            <Text style={tailwind`text-sm p-1`}>Add To-Do</Text>
+          </Pressable>
         </View>
       </View>
       {todos.length > 0 ? (
@@ -121,23 +126,23 @@ const ListPage = () => {
           data={todos}
           renderItem={renderToDo}
           keyExtractor={(todo) => todo.id}
-          style={tailwind`mt-5`}
+          style={tailwind`mt-5 `}
         />
       ) : (
         []
       )}
       {Platform.OS == "web" ? (
-        <View style={tailwind`absolute rounded border top-7 right-10 p-1`}>
+        <View style={tailwind`absolute rounded  top-7 right-10 p-1 bg-red-700`}>
           <Pressable onPress={() => router.replace("/")}>
-            <Text>LogOut</Text>
+            <Text style={tailwind`text-slate-50`}>Log-Out</Text>
           </Pressable>
         </View>
       ) : (
         <View
-          style={tailwind` absolute rounded-xl p-1 border bottom-20 right-7`}
+          style={tailwind` absolute rounded-xl p-1 bg-red-700 bottom-20 right-7`}
         >
           <Pressable onPress={() => router.replace("/")}>
-            <Ionicons name="log-out" size={24} color="red" />
+            <Ionicons name="log-out" size={24} color="white" />
           </Pressable>
         </View>
       )}
