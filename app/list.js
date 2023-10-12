@@ -7,6 +7,8 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Pressable,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import tailwind from "twrnc";
@@ -76,7 +78,7 @@ const ListPage = () => {
           onPress={toggleDown}
           style={tailwind`mb-5 flex-row flex-1`}
         >
-          {item.done && <Ionicons name="ellipse" size={22} />}
+          {item.done && <Ionicons name="ellipse" size={22} color="green" />}
           {!item.done && <Ionicons name="ellipse-outline" size={22} />}
           <Text style={tailwind`text-base ml-2 font-medium `}>
             {item.title}
@@ -97,7 +99,13 @@ const ListPage = () => {
 
   return (
     <View style={tailwind`w-full h-full`}>
-      <View style={tailwind`mt-12 ml-6 flex-row gap-5`}>
+      <View
+        style={
+          Platform.OS == "web"
+            ? tailwind`mt-5 ml-6 flex-row gap-5`
+            : tailwind`mt-12 ml-6 flex-row gap-5`
+        }
+      >
         <TextInput
           placeholder="Write Your ToDo"
           value={todo}
@@ -113,10 +121,25 @@ const ListPage = () => {
           data={todos}
           renderItem={renderToDo}
           keyExtractor={(todo) => todo.id}
-          style={tailwind`mt-5 h-full`}
+          style={tailwind`mt-5`}
         />
       ) : (
         []
+      )}
+      {Platform.OS == "web" ? (
+        <View style={tailwind`absolute rounded border top-7 right-10 p-1`}>
+          <Pressable onPress={() => router.replace("/")}>
+            <Text>LogOut</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View
+          style={tailwind` absolute rounded-xl p-1 border bottom-20 right-7`}
+        >
+          <Pressable onPress={() => router.replace("/")}>
+            <Ionicons name="log-out" size={24} color="red" />
+          </Pressable>
+        </View>
       )}
     </View>
   );

@@ -18,8 +18,8 @@ const RegForm = () => {
   const router = useRouter();
 
   const handleLogin = (values) => {
-    console.log("Values:", values);
-    router.replace("/list");
+    console.log("Values:", values.email);
+    // router.replace("/list");
   };
 
   return (
@@ -51,6 +51,7 @@ const RegForm = () => {
           </Text>
         </View>
       )}
+
       <Formik
         initialValues={{
           email: "",

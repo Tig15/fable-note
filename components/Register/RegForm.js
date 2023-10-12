@@ -17,9 +17,9 @@ import { useRouter } from "expo-router";
 const RegForm = () => {
   const router = useRouter();
 
-  const handleLogin = (values) => {
+  const handleRegistration = (values) => {
     console.log("Values:", values);
-    router.replace("/list");
+    // router.replace("/list");
   };
 
   return (
@@ -60,7 +60,7 @@ const RegForm = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          handleLogin(values);
+          handleRegistration(values);
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
