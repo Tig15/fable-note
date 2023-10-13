@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,19 +7,37 @@ import {
   Dimensions,
   Platform,
   Pressable,
+  Alert,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { ref } from "yup";
 import tailwind from "twrnc";
 import { useRouter } from "expo-router";
+import { registerUser } from "../../Firebase/firebaseAuth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RegForm = () => {
   const router = useRouter();
 
-  const handleRegistration = (values) => {
-    console.log("Values:", values);
-    // router.replace("/list");
+  const handleRegistration = async (values) => {
+    const { email, password, name } = values;
+
+    try {
+      const user = await registerUser(email, password, name);
+
+      if (user.error) {
+        if (user.error === "auth/email-already-in-use") {
+          Alert.alert("Email already is in use");
+        } else {
+          console.error("Registration failed:", user.error);
+        }
+      } else {
+        router.replace("/list");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (

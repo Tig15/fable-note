@@ -13,13 +13,23 @@ import * as Yup from "yup";
 import { ref } from "yup";
 import tailwind from "twrnc";
 import { useRouter } from "expo-router";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_APP } from "../../Firebase/firebaseConfig";
 
-const RegForm = () => {
+const LogForm = () => {
   const router = useRouter();
 
-  const handleLogin = (values) => {
-    console.log("Values:", values.email);
-    router.replace("/list");
+  const handleLogin = async (values) => {
+    const { email, password } = values;
+
+    const auth = getAuth(FIREBASE_APP);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Sign-in successful");
+      router.replace("/list");
+    } catch (error) {
+      console.error("Sign-in failed:", error.message);
+    }
   };
 
   return (
@@ -136,4 +146,4 @@ const validationSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
-export default RegForm;
+export default LogForm;
