@@ -16,9 +16,11 @@ import tailwind from "twrnc";
 import { useRouter } from "expo-router";
 import { registerUser } from "../../Firebase/firebaseAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const RegForm = () => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegistration = async (values) => {
     const { email, password, name } = values;
@@ -126,15 +128,35 @@ const RegForm = () => {
             </View>
 
             <View style={tailwind`mb-2 gap-1`}>
-              <TextInput
-                style={tailwind`w-70 h-10 border-slate-950 border mb-4 px-2 rounded`}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                placeholder="Password"
-                placeholderTextColor="black"
-                secureTextEntry
-              />
+              <View style={tailwind`relative`}>
+                <TextInput
+                  style={tailwind`w-70 h-10 border-slate-950 border mb-4 px-2 rounded`}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  placeholder="Password"
+                  placeholderTextColor="black"
+                  secureTextEntry={!showPassword}
+                />
+                <TouchableOpacity
+                  style={tailwind`absolute top-[11px] right-2`}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <MaterialCommunityIcons
+                      name="eye-off-outline"
+                      size={20}
+                      color="#072541"
+                    />
+                  ) : (
+                    <MaterialCommunityIcons
+                      name="eye-outline"
+                      size={20}
+                      color="#072541"
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
               {errors.password && (
                 <Text
                   style={tailwind`text-xs text-red-600 absolute top-11 left-2`}
@@ -145,15 +167,35 @@ const RegForm = () => {
             </View>
 
             <View style={tailwind`mb-2 gap-1`}>
-              <TextInput
-                style={tailwind`w-70 h-10 border-slate-950 border mb-4 px-2 rounded`}
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={handleBlur("confirmPassword")}
-                value={values.confirmPassword}
-                placeholder="Confirm Password"
-                placeholderTextColor="black"
-                secureTextEntry
-              />
+              <View style={tailwind`relative`}>
+                <TextInput
+                  style={tailwind`w-70 h-10 border-slate-950 border mb-4 px-2 rounded`}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  value={values.confirmPassword}
+                  placeholder="Confirm Password"
+                  placeholderTextColor="black"
+                  secureTextEntry={!showPassword}
+                />
+                <TouchableOpacity
+                  style={tailwind`absolute top-[11px] right-2`}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <MaterialCommunityIcons
+                      name="eye-off-outline"
+                      size={20}
+                      color="#072541"
+                    />
+                  ) : (
+                    <MaterialCommunityIcons
+                      name="eye-outline"
+                      size={20}
+                      color="#072541"
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
               {errors.confirmPassword && (
                 <Text
                   style={tailwind`text-xs text-red-600 absolute top-11 left-2`}
