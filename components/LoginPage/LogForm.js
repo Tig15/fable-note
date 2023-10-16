@@ -71,7 +71,7 @@ const LogForm = () => {
         </View>
       ) : (
         <View
-          style={tailwind`bg-zinc-800 w-full absolute top-0 mt-6 h-11 flex-row`}
+          style={tailwind`bg-zinc-800 w-full absolute top-7 mt-6 h-11 flex-row`}
         >
           <Text style={tailwind`text-xl text-slate-100 uppercase mt-2 ml-5`}>
             Fable-Note
@@ -160,10 +160,10 @@ const LogForm = () => {
             </View>
 
             <TouchableOpacity
-              style={tailwind`bg-blue-800 p-2 rounded items-center mt-2 w-70  `}
+              style={tailwind`border border-blue-800 p-2 rounded items-center mt-2 w-70  `}
               onPress={handleSubmit}
             >
-              <Text style={tailwind`text-slate-100 text-sm`}>Login</Text>
+              <Text style={tailwind`text-blue-800 text-sm`}>Login</Text>
             </TouchableOpacity>
 
             <View style={tailwind`flex flex-col items-center mt-5 gap-2`}>

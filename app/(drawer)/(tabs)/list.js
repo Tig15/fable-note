@@ -153,7 +153,7 @@ const ListPage = () => {
         style={
           Platform.OS == "web"
             ? tailwind`w-full p-4 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-slate-900`
-            : tailwind`w-full mt-7 p-3 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-slate-900`
+            : tailwind`w-full mt-13 p-3 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-slate-900`
         }
       >
         <View style={tailwind`flex-column gap-2`}>

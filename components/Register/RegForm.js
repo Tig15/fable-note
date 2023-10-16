@@ -59,7 +59,7 @@ const RegForm = () => {
         </View>
       ) : (
         <View
-          style={tailwind`bg-zinc-800 w-full absolute top-0 mt-6 h-11 flex-row`}
+          style={tailwind`bg-zinc-800 w-full absolute top-7 mt-6 h-11 flex-row`}
         >
           <Text style={tailwind`text-xl text-slate-100 uppercase mt-2 ml-5`}>
             Fable-Note
