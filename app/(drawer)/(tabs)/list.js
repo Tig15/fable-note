@@ -22,6 +22,7 @@ import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { getAuth } from "firebase/auth";
 import { StatusBar } from "expo-status-bar";
 import { FIREBASE_APP, FIREBASE_DB } from "../../../Firebase/firebaseConfig";
+import Toast from "react-native-toast-message";
 
 const ListPage = () => {
   const [todos, setTodos] = useState([]);
@@ -33,6 +34,18 @@ const ListPage = () => {
   useEffect(() => {
     collectToDo();
   }, []);
+
+  const showToast = (msg1, msg2, opt, time) => {
+    Toast.show({
+      text1: msg1,
+      text2: msg2,
+      type: opt,
+      position: "bottom",
+      bottomOffset: 40,
+      autoHide: true,
+      visibilityTime: time,
+    });
+  };
 
   const collectToDo = () => {
     const auth = getAuth(FIREBASE_APP);
@@ -72,6 +85,7 @@ const ListPage = () => {
       });
 
       setTodo("");
+      showToast("To-Do Added", "", "info", 2000);
     }
   };
 
@@ -87,6 +101,7 @@ const ListPage = () => {
 
     const deleteItem = async () => {
       deleteDoc(ref);
+      showToast("Deleted", "Your To-Do cannot be recovered", "info", 2000);
     };
 
     return (
@@ -133,6 +148,7 @@ const ListPage = () => {
 
   return (
     <View style={tailwind`w-full h-full bg-sky-200 `}>
+      <Toast />
       <View
         style={
           Platform.OS == "web"
@@ -155,7 +171,7 @@ const ListPage = () => {
                   color="white"
                 />
               </TouchableOpacity>
-              <Text style={tailwind`text-2xl text-slate-50`}>Fable-Note</Text>
+              <Text style={tailwind`text-2xl text-slate-50 `}>Fable-Note</Text>
             </View>
           )}
           <Text style={tailwind`text-xs text-slate-50`}>

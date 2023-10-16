@@ -16,6 +16,7 @@ import { useRouter } from "expo-router";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_APP } from "../../Firebase/firebaseConfig";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Toast from "react-native-toast-message";
 
 const LogForm = () => {
   const router = useRouter();
@@ -27,15 +28,34 @@ const LogForm = () => {
     const auth = getAuth(FIREBASE_APP);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("Sign-in successful");
+
       router.replace("/list");
     } catch (error) {
       console.error("Sign-in failed:", error.message);
+      showToast(
+        "Invalid Credentials",
+        "Check your credentials or go back and create account",
+        "error",
+        2000
+      );
     }
+  };
+
+  const showToast = (msg1, msg2, opt, time) => {
+    Toast.show({
+      text1: msg1,
+      text2: msg2,
+      type: opt,
+      position: "top",
+      topOffset: 100,
+      autoHide: true,
+      visibilityTime: time,
+    });
   };
 
   return (
     <View style={tailwind`flex-1 justify-center w-full h-full items-center`}>
+      <Toast />
       {Platform.OS == "web" ? (
         <View
           style={tailwind`bg-zinc-800 w-full absolute top-0 h-15 pt-3 pl-5 flex-row `}
@@ -146,7 +166,7 @@ const LogForm = () => {
               <Text style={tailwind`text-slate-100 text-sm`}>Login</Text>
             </TouchableOpacity>
 
-            <View style={tailwind`flex flex-row mt-5 gap-2`}>
+            <View style={tailwind`flex flex-col items-center mt-5 gap-2`}>
               <Text style={tailwind`text-xs`}>Not Registered?</Text>
               <Pressable onPress={() => router.replace("/register")}>
                 <Text style={tailwind`text-xs underline `}>
