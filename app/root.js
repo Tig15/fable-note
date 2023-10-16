@@ -18,7 +18,7 @@ const Root = () => {
         }}
       />
       <Stack.Screen
-        name="list"
+        name="(drawer)"
         options={{
           headerShown: false,
         }}

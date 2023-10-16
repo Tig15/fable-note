@@ -18,10 +18,10 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { FIREBASE_APP, FIREBASE_DB } from "../Firebase/firebaseConfig";
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { getAuth } from "firebase/auth";
 import { StatusBar } from "expo-status-bar";
+import { FIREBASE_APP, FIREBASE_DB } from "../../../Firebase/firebaseConfig";
 
 const ListPage = () => {
   const [todos, setTodos] = useState([]);
@@ -91,18 +91,22 @@ const ListPage = () => {
 
     return (
       <View
-        style={tailwind`w-[90%] ml-6 mb-2 p-2 rounded border flex-row gap-5 bg-slate-200`}
+        style={
+          Platform.OS == "web"
+            ? tailwind`w-[60%] ml-80 mb-2 p-2 rounded border flex-row gap-5 bg-slate-200`
+            : tailwind`w-[90%] ml-6 mb-2 p-2 rounded border flex-row gap-5 bg-slate-200`
+        }
       >
         <TouchableOpacity
           onPress={toggleDown}
-          style={tailwind`mb-5 flex-row flex-1`}
+          style={tailwind`mb-4 flex-row flex-1`}
         >
           {item.done && <Ionicons name="ellipse" size={22} color="green" />}
           {!item.done && <Ionicons name="ellipse-outline" size={22} />}
           <Text
             style={
               Platform.OS == "web"
-                ? tailwind`text-base ml-2 font-medium `
+                ? tailwind`text-base ml-3 font-medium `
                 : tailwind`w-80 text-base ml-2 font-medium `
             }
           >
@@ -125,17 +129,35 @@ const ListPage = () => {
     );
   };
 
+  //Component Return
+
   return (
     <View style={tailwind`w-full h-full bg-sky-200 `}>
       <View
         style={
           Platform.OS == "web"
-            ? tailwind`w-full p-3 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-sky-900`
-            : tailwind`w-full mt-7 p-3 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-sky-900`
+            ? tailwind`w-full p-4 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-slate-900`
+            : tailwind`w-full mt-7 p-3 rounded-br-xl shadow-xl rounded-bl-xl flex-row justify-between bg-slate-900`
         }
       >
         <View style={tailwind`flex-column gap-2`}>
-          <Text style={tailwind`text-2xl text-slate-50`}>Fable-Note</Text>
+          {Platform.OS === "web" ? (
+            <Text style={tailwind`text-2xl text-slate-50`}>Fable-Note</Text>
+          ) : (
+            <View style={tailwind`flex-row gap-3`}>
+              <TouchableOpacity
+                onPress={() => navigation.openDrawer()}
+                style={tailwind`mt-1`}
+              >
+                <MaterialIcons
+                  name="format-align-left"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
+              <Text style={tailwind`text-2xl text-slate-50`}>Fable-Note</Text>
+            </View>
+          )}
           <Text style={tailwind`text-xs text-slate-50`}>
             Write Once, Keep It Forever in Fable
           </Text>
@@ -160,7 +182,7 @@ const ListPage = () => {
       <View
         style={
           Platform.OS == "web"
-            ? tailwind`mt-5 ml-6 flex-row gap-5`
+            ? tailwind`mt-5 ml-80 w-[60%] justify-between flex-row gap-5`
             : tailwind`mt-4 ml-5 flex-row gap-1`
         }
       >
@@ -190,6 +212,7 @@ const ListPage = () => {
           </View>
         )}
       </View>
+
       {todos.length > 0 ? (
         <FlatList
           data={todos}
