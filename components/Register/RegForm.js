@@ -58,14 +58,12 @@ const RegForm = () => {
           </Text>
         </View>
       ) : (
-        <View
-          style={tailwind`bg-zinc-800 w-full absolute top-7 mt-6 h-11 flex-row`}
-        >
-          <Text style={tailwind`text-xl text-slate-100 uppercase mt-2 ml-5`}>
+        <View style={tailwind`bg-zinc-800 w-full absolute top-11 p-2 flex-row`}>
+          <Text style={tailwind`text-xl text-slate-100 uppercase mt-2 ml-2`}>
             Fable-Note
           </Text>
           <Text
-            style={tailwind`text-xl text-slate-100 uppercase absolute top-2 right-6 `}
+            style={tailwind`text-xl text-slate-100 uppercase absolute top-[16px] right-4 `}
           >
             Register
           </Text>
